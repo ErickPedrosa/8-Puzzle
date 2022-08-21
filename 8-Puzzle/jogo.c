@@ -17,6 +17,12 @@ int jogo_resolver(Grafos_mat *jogo)
     {
         return TRUE;
     }
+    Lista *testados = NULL;
+    Lista *fila_testar = NULL;
+    testados = lista_insere(testados, jogo_codigo(jogo));
+    fila_testar = lista_insere(fila_testar, jogo_codigo(jogo));
+
+    while(fila_testar != NULL);
 }
 
 Grafos_mat* matriz_referencia(void) {

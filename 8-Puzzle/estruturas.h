@@ -2,6 +2,7 @@
 #define SUCESSO 0
 #define TAMANHO 9
 #define NUM_DE_EMBARALHAMENTOS 500
+#define TAM_FILA 150
 
 #define TRUE 1
 #define FALSE 0
@@ -29,7 +30,20 @@ typedef struct p_ListaEncad
 
 void lista_libera(Lista *fonte);
 Lista *lista_insere(Lista *fonte, int valor);
-int lista_procura(Lista* list, int alvo)
+int lista_procura(Lista* list, int alvo);
+
+// Fila & funções
+typedef struct p_FilaJogo
+{
+    int tam;
+    int inicio;
+    Grafos_mat *valores[TAM_FILA];
+} Fila;
+
+Fila *Fila_cria();
+int Fila_insere(Fila *fonte, Grafos_mat *valor);
+Grafos_mat *Fila_retira(Fila *fonte);
+void Fila_libera(Fila *fonte);
 
 //Grafos de Matriz de Adjac�ncias N�o-Orientada.
 Grafos_mat* aloca_grafo_m(void);

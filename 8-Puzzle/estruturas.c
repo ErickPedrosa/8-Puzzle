@@ -27,6 +27,38 @@ int lista_procura(Lista* list, int alvo)
     return FALSE;
 }
 
+Fila *Fila_cria()
+{
+    Fila *novo = (Fila *) calloc (1, sizeof(Fila));
+    return novo;
+}
+int Fila_insere(Fila *fonte, Grafos_mat *valor)
+{
+    if(fonte->tam >= TAM_FILA) // Não estoure a memória
+        return 1;
+
+    int fim = (fonte->inicio + fonte->tam) % TAM_FILA;
+    fonte->valores[fim] = valor;
+    fonte->tam++;
+    return 0;
+}
+Grafos_mat *Fila_retira(Fila *fonte)
+{
+	if(fonte->tam != 0)
+    {
+        Grafos_mat *info = fonte->valores[fonte->inicio];
+        fonte->inicio = (fonte->inicio + 1) % TAM_FILA;
+        fonte->tam--;
+        return info;
+    }
+    return NULL;
+}
+void Fila_libera(Fila *fonte)
+{
+    if(fonte != NULL)
+       free(fonte);
+    return; 
+}
 
 Grafos_mat* aloca_grafo_m(void) {
 	Grafos_mat* mat;
