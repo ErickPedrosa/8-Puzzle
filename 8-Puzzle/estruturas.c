@@ -1,5 +1,33 @@
 ﻿#include "jogo.h"
 
+void lista_libera(Lista *fonte)
+{
+    Lista *passo = fonte;
+    while(passo != NULL)
+    {
+        Lista *buffer = passo->prox;
+        free(passo);
+        passo = buffer;
+    }
+    return;
+}
+Lista *lista_insere(Lista *fonte, int valor)
+{
+    Lista *passo = (Lista *) malloc(sizeof(Lista));
+    passo->valor = valor;
+    passo->prox = fonte;
+    return passo;
+}
+int lista_procura(Lista* list, int alvo)
+{
+    Lista *passo;
+    for(passo = list; passo != NULL; passo = passo->prox)
+        if(passo->valor == alvo)
+            return TRUE;
+    return FALSE;
+}
+
+
 Grafos_mat* aloca_grafo_m(void) {
 	Grafos_mat* mat;
 

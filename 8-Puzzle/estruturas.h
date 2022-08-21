@@ -20,6 +20,16 @@ struct grafos_matriz_adj {
 };
 typedef struct grafos_matriz_adj Grafos_mat;
 
+// Lista encadeada & funções
+typedef struct p_ListaEncad
+{
+    int valor;
+    struct p_ListaEncad *prox;
+} Lista;
+
+void lista_libera(Lista *fonte);
+Lista *lista_insere(Lista *fonte, int valor);
+int lista_procura(Lista* list, int alvo)
 
 //Grafos de Matriz de Adjac�ncias N�o-Orientada.
 Grafos_mat* aloca_grafo_m(void);

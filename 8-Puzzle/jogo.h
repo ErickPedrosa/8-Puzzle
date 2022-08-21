@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <time.h>
 
+int jogo_codigo(Grafos_mat *tabela);
 
 Grafos_mat* matriz_referencia(void);
 Grafos_mat* matriz_embaralhada(void);

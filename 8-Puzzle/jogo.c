@@ -1,5 +1,24 @@
 #include "jogo.h"
 
+int jogo_codigo(Grafos_mat *tabela)
+{
+    int codigo = 0, base_dez = 1;
+    for(int i = 0; i < 9; i++)
+    {
+        codigo += tabela->adj[i][i] * base_dez;
+        base_dez *= 10;
+    }
+    return codigo;
+}
+
+int jogo_resolver(Grafos_mat *jogo)
+{
+    if(possivel_resolver(jogo) == TRUE)
+    {
+        return TRUE;
+    }
+}
+
 Grafos_mat* matriz_referencia(void) {
 
     Grafos_mat* grafo_jogo = aloca_grafo_m();
