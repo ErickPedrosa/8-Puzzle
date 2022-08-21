@@ -1,5 +1,8 @@
 ﻿#include "jogo.h"
 
+// .c Contendo todas as definições de funções relacionadas a estrutura de Grafo.
+
+
 Grafos_mat* aloca_grafo_m(void) {
 	Grafos_mat* mat;
 
@@ -26,6 +29,8 @@ void libera_grafo_m(Grafos_mat* mat) {
 	free(mat);
 
 }
+
+// Insere uma aresta não-orientada no grafo;
 void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
 	if (mat->adj[origem][destino] == 0) {
@@ -35,6 +40,8 @@ void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 	}
 
 }
+
+// Retira uma aresta do grafo;
 void retira_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
 	if (mat->adj[origem][destino] == 1) {
@@ -44,20 +51,3 @@ void retira_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 	}
 
 }
-void imprime_matriz(Grafos_mat* mat) {
-	printf("\nMatriz de Adjac�ncias\n");
-	printf("\t");
-	for (int i = 0; i < mat->vert; i++) {
-		printf("%i\t", i);
-	}
-	printf("\n");
-
-	for (int j = 0; j < mat->vert; j++) {
-		printf("%i\t", j);
-		for (int k = 0; k < mat->vert; k++) {
-			printf("%i\t", mat->adj[j][k]);
-		}
-		printf("\n");
-	}
-}
-

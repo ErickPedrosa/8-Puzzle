@@ -1,7 +1,20 @@
 #include "jogo.h"
 
+/*
+    Configuração final:
+    -------------
+    | 1 | 2 | 3 |
+    -------------
+    | 4 | 5 | 6 |
+    -------------
+    | 7 | 8 |   |
+    -------------
+*/
+
+// Gera a matriz com a configuração final do jogo;
 Grafos_mat* matriz_referencia(void) {
 
+    // Aloca o Grafo
     Grafos_mat* grafo_jogo = aloca_grafo_m();
 
     // Insere o valor dos vertices;
@@ -11,7 +24,7 @@ Grafos_mat* matriz_referencia(void) {
     }
     grafo_jogo->adj[8][8] = NULL;
 
-
+    // Insere os arcos, 0 - indica que o movimento é impossível, 1 - indica que o movimento é possível;
     insere_arco_m(grafo_jogo, 0, 1);
     insere_arco_m(grafo_jogo, 0, 3);
     insere_arco_m(grafo_jogo, 1, 2);
@@ -27,36 +40,44 @@ Grafos_mat* matriz_referencia(void) {
 
     return grafo_jogo;
 }
+
+// Gera a matriz inicial do jogo, ou seja, uma matriz três por três aleatória;
 Grafos_mat* matriz_embaralhada(void) {
     
+    // Cria um grafo com a configuração final do tabuleiro;
     Grafos_mat* grafo_jogo = matriz_referencia();
     int i, j, buffer;
 
-    srand(time(NULL));
+    srand(time(NULL)); // Gera uma seed aleatória para o rand;
     
     do {
 
+        // Define uma quantidade de vezes que o tabuleiro será embaralhado;
         for (int k = 0; k < NUM_DE_EMBARALHAMENTOS; k++)
         {
-            i = rand() % 9;
+            i = rand() % 9; // Gera dois números aleatórios entre 0 e 8;
             j = rand() % 9;
 
             buffer = grafo_jogo->adj[i][i];
-            grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
+            grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j]; // Troca as peças com os indices i e j;
             grafo_jogo->adj[j][j] = buffer;
-
         }
-    } while (possivel_resolver(grafo_jogo) == FALSE);
+
+    } while (possivel_resolver(grafo_jogo) == FALSE); // Verifica se é possível resolver o jogo e se não for embaralha de novo;
 
 
-
+    // Retorna o grafo embaralhado;
     return grafo_jogo;
 }
 
+// Função que verifica se é possível resolver o jogo;
 int possivel_resolver(Grafos_mat* grafo_jogo) {
 
-    int inv_count = 0;
-    for (int i = 0; i < 9 - 1; i++) {
+    int inv_count = 0; // Variável que conta o número de inversões;
+                       // Inversões são quando em uma sequêcia de números um número precede outro menor que ele;
+                       // Ex: 1, 2, 3, 5, 4; uma inversão 5 - 4;
+
+    for (int i = 0; i < 9 - 1; i++) {  // Faz um laço para contar o número de inversões do jogo;
         for (int j = i + 1; j < 9; j++) {
             if (grafo_jogo->adj[j][j] && grafo_jogo->adj[i][i] && grafo_jogo->adj[i][i] > grafo_jogo->adj[j][j]) {
                 inv_count++;
@@ -64,9 +85,11 @@ int possivel_resolver(Grafos_mat* grafo_jogo) {
         }
     }
 
+    // Retorna se o número de inversões é par, caso seja, quer dizer que o jogo é solucionável;
     return (inv_count % 2 == 0);
 }
 
+// Gera um tabuleiro de exemplo de um caso insolucionável;
 Grafos_mat* jogo_impossivel_exemplo(void) {
     Grafos_mat* g = matriz_referencia();
 
@@ -83,8 +106,11 @@ Grafos_mat* jogo_impossivel_exemplo(void) {
     return g;
 }
 
+
+// Função que inicia o jogo dos oito;
 void inicia_jogo(void) {
 
+    // Gera uma matriz embaralhada que será usada no jogo;
     Grafos_mat* grafo_jogo = matriz_embaralhada();
     char resposta = 'S';
 
@@ -118,13 +144,14 @@ void inicia_jogo(void) {
 
     if (resposta == 'S' || resposta == 's') {
 		printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
-        while (verifica_se_acabou(grafo_jogo) == FALSE)
+
+        while (verifica_se_acabou(grafo_jogo) == FALSE) // Faz um laço que faça com que o usuário possa fazer uma nova jogada até resolver o jogo;
         {
-            imprime_jogo(grafo_jogo);
-            faz_jogada(grafo_jogo);
+            imprime_jogo(grafo_jogo); //  Imprime o jogo atual da rodada;
+            faz_jogada(grafo_jogo);  // Função que permite o usuário fazer uma jogada;
         }
 
-        imprime_jogo(grafo_jogo);
+        imprime_jogo(grafo_jogo); // Imprime o jogo final;
 
 		printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
 		printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
@@ -149,16 +176,16 @@ void inicia_jogo(void) {
 		printf("\e[0;47;40m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\033[0;0m\n");
 	}
 
-    libera_grafo_m(grafo_jogo);
+    libera_grafo_m(grafo_jogo); // Libera o grafo que foi alocado para o jogo;
 }
 
-
+// Verifica se a configuração passada foi igual a configuração final;
 int verifica_se_acabou(Grafos_mat* grafo_jogo) {
     Grafos_mat* ref = matriz_referencia();
 
     for (int i = 0; i < ref->vert; i++)
     {
-        if (ref->adj[i][i] != grafo_jogo->adj[i][i]) {
+        if (ref->adj[i][i] != grafo_jogo->adj[i][i]) {  // Caso algum indice não seja igual retorna que as matrizes são diferentes, ou seja, o jogo ainda não terminou;
             return FALSE;
         }
     }
@@ -166,7 +193,7 @@ int verifica_se_acabou(Grafos_mat* grafo_jogo) {
     return TRUE;
 }
 
-
+// Imprime o jogo passado;
 void imprime_jogo(Grafos_mat* grafo_jogo) {
 
     printf("\e[0;47;40m┃                                      \e[0;36;40m╔═════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
@@ -195,15 +222,15 @@ void faz_jogada(Grafos_mat *grafo_jogo) {
     for (int i = 0; i < grafo_jogo->vert; i++){
         if (grafo_jogo->adj[i][i] == NULL) {
 
-            // Procura pelo pe�a indicada;
+            // Procura pela peça indicada;
             for (int j = 0; j < grafo_jogo->vert; j++) {
                 if (grafo_jogo->adj[j][j] == movimento) {
 
 
-                    // Verifica se � poss�vel fazer aquele movimento;
+                    // Verifica se é possível fazer aquele movimento;
                     if (grafo_jogo->adj[i][j] == 1) {
 
-                        // Troca de lugar o espa�o vazio;
+                        // Troca de lugar o espaço vazio;
                         grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
                         grafo_jogo->adj[j][j] = NULL;
 
