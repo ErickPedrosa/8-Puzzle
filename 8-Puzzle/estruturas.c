@@ -1,4 +1,5 @@
 ﻿#include "jogo.h"
+// .c Contendo todas as definições de funções relacionadas a estrutura de Grafo.
 
 int obter_codigo(Grafos_mat *tabela)
 {
@@ -161,6 +162,8 @@ void libera_grafo_m(Grafos_mat* mat) {
 	free(mat);
 	return;
 }
+
+// Copia um grafo para outro
 void grafo_copia(Grafos_mat *dest, Grafos_mat *fonte)
 {
 	for(int i = 0; i < 9; i++)
@@ -173,6 +176,7 @@ void grafo_copia(Grafos_mat *dest, Grafos_mat *fonte)
 	return;
 }
 
+// Insere uma aresta não-orientada no grafo;
 void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
 	if (mat->adj[origem][destino] == 0) {
@@ -182,6 +186,9 @@ void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 	}
 	return;
 }
+
+
+// Retira uma aresta do grafo;
 void retira_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
 	if (mat->adj[origem][destino] == 1) {
@@ -191,20 +198,3 @@ void retira_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 	}
 
 }
-void imprime_matriz(Grafos_mat* mat) {
-	printf("\nMatriz de Adjac�ncias\n");
-	printf("\t");
-	for (int i = 0; i < mat->vert; i++) {
-		printf("%i\t", i);
-	}
-	printf("\n");
-
-	for (int j = 0; j < mat->vert; j++) {
-		printf("%i\t", j);
-		for (int k = 0; k < mat->vert; k++) {
-			printf("%i\t", mat->adj[j][k]);
-		}
-		printf("\n");
-	}
-}
-

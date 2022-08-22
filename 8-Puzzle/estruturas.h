@@ -62,6 +62,5 @@ void grafo_copia(Grafos_mat *dest, Grafos_mat *fonte);
 void libera_grafo_m(Grafos_mat* mat);
 void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino);
 void retira_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino);
-void imprime_matriz(Grafos_mat* mat);
 
 
