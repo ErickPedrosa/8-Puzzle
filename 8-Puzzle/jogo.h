@@ -3,8 +3,20 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <time.h>
+#include <math.h>
 
-int jogo_codigo(Grafos_mat *tabela);
+typedef enum p_Direc
+{
+    Cima = 0,
+    Direita = 1,
+    Baixo = 2,
+    Esquerda = 3
+} Direcao;
+
+int obter_lugar(Grafos_mat *jogo, int valor);
+void fazer_movimento(Grafos_mat *jogo, Direcao direc);
+// int 1(Grafos_mat *tabela);
+int jogo_resolver(Grafos_mat *jogo);
 
 Grafos_mat* matriz_referencia(void);
 Grafos_mat* matriz_embaralhada(void);

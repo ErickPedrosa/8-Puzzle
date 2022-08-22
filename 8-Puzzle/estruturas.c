@@ -1,5 +1,26 @@
 ﻿#include "jogo.h"
 
+int obter_codigo(Grafos_mat *tabela)
+{
+    int codigo = 0, base_dez = 1;
+    for(int i = 0; i < 9; i++)
+    {
+        codigo += tabela->adj[i][i] * base_dez;
+        base_dez *= 10;
+    }
+    return codigo;
+}
+
+Grafos_mat *lista_pega(Lista *fonte, int valor)
+{
+	if(fonte == NULL) return NULL;
+	for(Lista *step = fonte; step != NULL; step = step->prox)
+	{
+		if(step->valor == valor)
+			return step->grafo;
+	}
+	return NULL;
+}
 void lista_libera(Lista *fonte)
 {
     Lista *passo = fonte;
@@ -11,11 +32,13 @@ void lista_libera(Lista *fonte)
     }
     return;
 }
-Lista *lista_insere(Lista *fonte, int valor)
+Lista *lista_insere(Lista *fonte, Grafos_mat *valor)
 {
-    Lista *passo = (Lista *) malloc(sizeof(Lista));
-    passo->valor = valor;
-    passo->prox = fonte;
+    Lista *passo = (Lista *) calloc(1, sizeof(Lista));
+	passo->grafo = aloca_grafo_m();
+	grafo_copia(passo->grafo, valor);
+	passo->valor = obter_codigo(valor);
+	passo->prox = fonte;
     return passo;
 }
 int lista_procura(Lista* list, int alvo)
@@ -26,38 +49,86 @@ int lista_procura(Lista* list, int alvo)
             return TRUE;
     return FALSE;
 }
+void lista_altera(Lista *lista, int alvo, Grafos_mat* valor)
+{
+	Lista *passo;
+    for(passo = lista; passo != NULL; passo = passo->prox)
+        if(passo->valor == alvo)
+		{
+			grafo_copia(passo->grafo, valor);
+			return;
+		}
+	return;
+}
 
 Fila *Fila_cria()
 {
-    Fila *novo = (Fila *) calloc (1, sizeof(Fila));
-    return novo;
+	Fila *novo = (Fila *) calloc(1, sizeof(Fila));
+	novo->inicio = NULL, novo->fim = NULL;
+	return novo;
 }
-int Fila_insere(Fila *fonte, Grafos_mat *valor)
+void Fila_insere(Fila *fonte, Grafos_mat *info)
 {
-    if(fonte->tam >= TAM_FILA) // Não estoure a memória
-        return 1;
+	filaNodo *inserir = (filaNodo *) malloc(sizeof(filaNodo));
+	inserir->grafo = aloca_grafo_m();
+	grafo_copia(inserir->grafo, info);
+	inserir->prox = NULL;
 
-    int fim = (fonte->inicio + fonte->tam) % TAM_FILA;
-    fonte->valores[fim] = valor;
-    fonte->tam++;
-    return 0;
+	if(fonte->inicio == NULL)
+	{	// Inserir primeiro
+		fonte->inicio = inserir;
+		fonte->fim = inserir;
+	}
+	else if(info->dist_global < fonte->inicio->grafo->dist_global)
+	{	// Inserir na frente
+		inserir->prox = fonte->inicio;
+		fonte->inicio = inserir;
+	}
+	else for(filaNodo *passo = fonte->inicio; 1; passo = passo->prox)
+		{
+			if(passo->prox == NULL)
+			{	// Inserir No Fim
+				passo->prox = inserir;
+				fonte->fim = inserir;
+				break;
+			}
+			else if(passo->prox->grafo->dist_global > info->dist_global)
+			{	// Inserir no meio
+				inserir->prox = passo->prox;
+				passo->prox = inserir;
+				break;
+			}
+		}
+	return;
 }
 Grafos_mat *Fila_retira(Fila *fonte)
 {
-	if(fonte->tam != 0)
+	Grafos_mat *info = aloca_grafo_m(); //(Grafos_mat *) malloc(sizeof(Grafos_mat));
+	if(fonte->inicio != NULL)
     {
-        Grafos_mat *info = fonte->valores[fonte->inicio];
-        fonte->inicio = (fonte->inicio + 1) % TAM_FILA;
-        fonte->tam--;
-        return info;
+        filaNodo *delete = fonte->inicio;
+        grafo_copia(info, delete->grafo);
+        fonte->inicio = delete->prox;
+        
+        if(fonte->inicio == NULL) // Se ficar vazio, marcar como fim
+            fonte->fim = NULL;
+		libera_grafo_m(delete->grafo);
+        free(delete);
     }
-    return NULL;
+    return info;	
 }
 void Fila_libera(Fila *fonte)
 {
-    if(fonte != NULL)
-       free(fonte);
-    return; 
+    filaNodo *passo = fonte->inicio;
+    while(passo != NULL)
+    {
+        filaNodo *buffer = passo->prox;
+        libera_grafo_m(passo->grafo);
+		free(passo);
+        passo = buffer;
+    }
+    free(fonte);
+    return;
 }
 
 Grafos_mat* aloca_grafo_m(void) {
@@ -67,16 +138,20 @@ Grafos_mat* aloca_grafo_m(void) {
 	
 	mat->adj = (Bool**)malloc(sizeof(Bool*) * TAMANHO);
 	
-	for (int i = 0; i < TAMANHO; i++) {
+	for (int i = 0; i < TAMANHO; i++)
+	{
 		mat->adj[i] = (Bool*)calloc(TAMANHO, sizeof(Bool));
-		
 	}
 
 	mat->arcos = 0;
 	mat->vert = TAMANHO;
+	mat->dist_global = INT32_MAX;
+	mat->dist_local = INT32_MAX;
+	mat->parente = NULL;
 
 	return mat;
 }
+
 void libera_grafo_m(Grafos_mat* mat) {
 
 	for (int i = 0; i < mat->vert; i++) {
@@ -84,8 +159,20 @@ void libera_grafo_m(Grafos_mat* mat) {
 	}
 	free(mat->adj);
 	free(mat);
-
+	return;
 }
+void grafo_copia(Grafos_mat *dest, Grafos_mat *fonte)
+{
+	for(int i = 0; i < 9; i++)
+		dest->adj[i][i] = fonte->adj[i][i];
+	dest->arcos = fonte->arcos;
+	dest->vert = fonte->vert;
+	dest->dist_global = fonte->dist_global;
+	dest->dist_local = fonte->dist_local;
+	dest->parente = fonte->parente;
+	return;
+}
+
 void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
 	if (mat->adj[origem][destino] == 0) {
@@ -93,7 +180,7 @@ void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 		mat->adj[destino][origem] = 1;
 		mat->arcos++;
 	}
-
+	return;
 }
 void retira_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
