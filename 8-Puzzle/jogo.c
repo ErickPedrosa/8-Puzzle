@@ -1,4 +1,5 @@
 #include "jogo.h"
+#include <unistd.h>
 
 /*
     Configuração final:
@@ -52,20 +53,20 @@ void fazer_movimento(Grafos_mat *jogo, Direcao direc)
 
 int distancia_Manhattan(Grafos_mat *jogo)
 {
-    int distancia = 0;
-    int esperado = 0;
+    int distancia = 0, esperado = 0;
+    // int esperado = 0;
     Grafos_mat *solucao = matriz_referencia();
 
     for (int i = 0; i < 9; i++)
     {
-        int esperado = jogo->adj[i][i];
+        int valor = jogo->adj[i][i];
         esperado++;
         if(esperado == 9)
             esperado = 0;
-        if (esperado != 0 && esperado != esperado)
+        if (valor != 0 && valor != esperado)
         {
-            int soluLinha = obter_lugar(solucao, esperado) / 3, soluColun = obter_lugar(solucao, esperado) % 3;
-            int realLinha = obter_lugar(jogo, esperado) / 3, realColun = obter_lugar(jogo, esperado) % 3;
+            int soluLinha = obter_lugar(solucao, valor) / 3, soluColun = obter_lugar(solucao, valor) % 3;
+            int realLinha = obter_lugar(jogo, valor) / 3, realColun = obter_lugar(jogo, valor) % 3;
             distancia += abs(soluColun - realColun) + abs(soluLinha - realLinha);
         }
     }
@@ -132,7 +133,7 @@ Grafos_mat* matriz_referencia(void) {
     {
         grafo_jogo->adj[i][i] = i + 1;
     }
-    grafo_jogo->adj[8][8] = NULL;
+    grafo_jogo->adj[8][8] = 0;
 
     // Insere os arcos, 0 - indica que o movimento é impossível,
     insere_arco_m(grafo_jogo, 0, 1);
@@ -223,12 +224,17 @@ void inicia_jogo(void) {
     // Gera uma matriz embaralhada que será usada no jogo;
     Grafos_mat* grafo_jogo = matriz_embaralhada();
     Grafos_mat* resolut = jogo_resolver_A(grafo_jogo);
+    Lista *ordem = NULL;
     for(Grafos_mat* step = resolut; step != NULL; step = step->parente)
+        ordem = lista_insere(ordem, step);
+    libera_grafo_m(resolut);
+    for(Lista* step = ordem; step != NULL; step = step->prox)
     {
-        imprime_jogo(step);
-        _sleep(3000);
-        system("cls");
+        imprime_jogo(step->grafo);
+        usleep(1000000);
+        system("clear");
     }
+    lista_libera(ordem);
     char resposta = 'S';
 
     printf("\e[0;47;40m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\033[0;0m\n");
