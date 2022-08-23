@@ -26,6 +26,8 @@ typedef enum p_Direc
 void esperar(unsigned int milisecs);
 void limpar_tela();
 void imprime_jogo(Grafos_mat* grafo_jogo);
+void imprime_incio();
+void imprime_fim();
 
 // Busca em grafo via A*
 void fazer_movimento(Grafos_mat *jogo, Direcao direc);

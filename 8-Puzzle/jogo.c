@@ -25,6 +25,14 @@ void imprime_jogo(Grafos_mat* grafo_jogo) {
     printf("\e[0;47;40m┃                                      \e[0;36;40m╚═════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
     return;
 }
+void imprime_incio()
+{
+    return;
+}
+void imprime_fim()
+{
+    return;
+}
 #elif __unix__
 void esperar(unsigned int milisecs)
 {
@@ -48,6 +56,14 @@ void imprime_jogo(Grafos_mat* grafo_jogo) {
     printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[6][6], grafo_jogo->adj[7][7], grafo_jogo->adj[8][8]);
     printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m└───┴───┴───┘\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
     printf("\e[0;47;40m┃                                      \e[0;36;40m╚═════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
+    return;
+}
+void imprime_incio()
+{
+    return;
+}
+void imprime_fim()
+{
     return;
 }
 #endif
