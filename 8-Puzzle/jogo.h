@@ -34,7 +34,7 @@ void imprime_fim();
 void fazer_movimento(Grafos_mat *jogo, Direcao direc);
 int distancia_Manhattan(Grafos_mat *jogo);
 int obter_lugar(Grafos_mat *jogo, int valor);
-int jogo_resolver(Grafos_mat *jogo);
+Grafos_mat *jogo_resolver_A(Grafos_mat *jogo);
 
 // Jogo
 Grafos_mat* matriz_referencia(void);
