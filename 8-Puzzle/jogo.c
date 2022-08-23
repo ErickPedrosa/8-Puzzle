@@ -33,6 +33,10 @@ void imprime_incio()
 {
     return;
 }
+void imprime_lin_final()
+{
+    return;
+}
 void imprime_fim()
 {
     return;
@@ -68,8 +72,6 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
                     }
                 }
             }
-
-            
         }
     }
 	printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
@@ -154,8 +156,12 @@ void imprime_fim()
 	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡘⣿⣿⣿⣿⣿⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
 	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
 	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
-	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
-	printf("\e[0;47;40m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\033[0;0m\n");
+
+    return;
+}
+void imprime_lin_final()
+{
+    printf("\e[0;47;40m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\033[0;0m\n");
     return;
 }
 // Jogada do usuário
@@ -464,6 +470,7 @@ void inicia_jogo(void) {
         imprime_jogo(grafo_jogo); // Imprime o jogo final;
         imprime_fim();
     }
+    imprime_lin_final();
     libera_grafo_m(grafo_jogo); // Libera o grafo que foi alocado para o jogo;
 }
 
