@@ -80,6 +80,29 @@ void imprime_fim()
 	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
     return;
 }
+
+void imprime_fim_pc()
+{
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                         \e[0;36;40m!!!PARABÉNS, O COMPUTADOR VENCEU O JOGO DOS OITO!!!\e[0;47;40m                                  ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣉⡥⠶⢶⣿⣿⣿⣿⣷⣆⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡿⢡⡞⠁⠀⠀⠤⠈⠿⠿⠿⠿⣿⠀⢻⣦⡈⠻⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠘⡁⠀⢀⣀⣀⣀⣈⣁⣐⡒⠢⢤⡈⠛⢿⡄⠻⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠉⠐⠄⡈⢀⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⠇⢠⣿⣿⣿⣿⡿⢿⣿⣿⣿⠁⢈⣿⡄⠀⢀⣀⠸⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⡿⠟⣡⣶⣶⣬⣭⣥⣴⠀⣾⣿⣿⣿⣶⣾⣿⣧⠀⣼⣿⣷⣌⡻⢿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⠟⣋⣴⣾⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿⣿⣿⣿⣿⣿⡿⢸⣿⣿⣿⣿⣷⠄⢻                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⡏⠰⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢂⣭⣿⣿⣿⣿⣿⠇⠘⠛⠛⢉⣉⣠⣴⣾                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣷⣦⣬⣍⣉⣉⣛⣛⣉⠉⣤⣶⣾⣿⣿⣿⣿⣿⣿⡿⢰⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡘⣿⣿⣿⣿⣿⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    return;
+}
+
 void imprime_lin_final()
 {
     printf("\e[0;47;40m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\033[0;0m\n");
@@ -139,6 +162,9 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
 	printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
     return FALSE;
 }
+
+//LINUX
+
 #elif __unix__
 void esperar(unsigned int milisecs)
 {
@@ -220,6 +246,27 @@ void imprime_fim()
 	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
     return;
 }
+void imprime_fim_pc()
+{
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                             \e[0;36;40m!!!PARABÉNS, O COMPUTADOR VENCEU O JOGO DOS OITO!!!\e[0;47;40m                              ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣉⡥⠶⢶⣿⣿⣿⣿⣷⣆⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡿⢡⡞⠁⠀⠀⠤⠈⠿⠿⠿⠿⣿⠀⢻⣦⡈⠻⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠘⡁⠀⢀⣀⣀⣀⣈⣁⣐⡒⠢⢤⡈⠛⢿⡄⠻⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠉⠐⠄⡈⢀⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⠇⢠⣿⣿⣿⣿⡿⢿⣿⣿⣿⠁⢈⣿⡄⠀⢀⣀⠸⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⡿⠟⣡⣶⣶⣬⣭⣥⣴⠀⣾⣿⣿⣿⣶⣾⣿⣧⠀⣼⣿⣷⣌⡻⢿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⠟⣋⣴⣾⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿⣿⣿⣿⣿⣿⡿⢸⣿⣿⣿⣿⣷⠄⢻                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⡏⠰⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢂⣭⣿⣿⣿⣿⣿⠇⠘⠛⠛⢉⣉⣠⣴⣾                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣷⣦⣬⣍⣉⣉⣛⣛⣉⠉⣤⣶⣾⣿⣿⣿⣿⣿⣿⡿⢰⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡘⣿⣿⣿⣿⣿⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    return;
+}
 void imprime_lin_final()
 {
     printf("\e[0;47;40m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\033[0;0m\n");
@@ -236,53 +283,43 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
 	imprime_linhaVazia();
 	
 	
-	/*if (movimento == 999 || movimento == 99)
+	if (movimento == 999 || movimento == 99)
     {
-        Grafos_mat* resolut = jogo_resolver_A(grafo_jogo);
-        Lista *ordem = NULL;
-        for(Grafos_mat* step = resolut; step != NULL; step->parente){
-            ordem = lista_insere(ordem, step);
-        }
-        libera_grafo_m(resolut);
+        Grafos_mat* result = jogo_resolver_A(grafo_jogo);
+        mostrar_resolvido(result);
+        imprime_fim_pc();
+        imprime_lin_final();
+        exit(0);
+    }else
+    {    
+	    // Procura pelo campo vazio;
+        for (int i = 0; i < grafo_jogo->vert; i++){
+            if (grafo_jogo->adj[i][i] == 0) {
 
-        for(Lista* step = ordem; step != NULL; step->prox){
-            imprime_jogo(step->grafo);
-            imprime_linhaVazia();
-            usleep(500000);
-
-        }
-        lista_libera(ordem);
-    }*/
-	
-	
-    
-	// Procura pelo campo vazio;
-    for (int i = 0; i < grafo_jogo->vert; i++){
-        if (grafo_jogo->adj[i][i] == 0) {
-
-            // Procura pela peça indicada;
-            for (int j = 0; j < grafo_jogo->vert; j++) {
-                if (grafo_jogo->adj[j][j] == movimento) {
+                // Procura pela peça indicada;
+                for (int j = 0; j < grafo_jogo->vert; j++) {
+                    if (grafo_jogo->adj[j][j] == movimento) {
 
 
-                    // Verifica se é possível fazer aquele movimento;
-                    if (grafo_jogo->adj[i][j] == 1) {
+                        // Verifica se é possível fazer aquele movimento;
+                        if (grafo_jogo->adj[i][j] == 1) {
 
-                        // Troca de lugar o espaço vazio;
-                        grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
-                        grafo_jogo->adj[j][j] = 0;
+                            // Troca de lugar o espaço vazio;
+                            grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
+                            grafo_jogo->adj[j][j] = 0;
 
-                        // Terminou a troca;
-                        return TRUE;
+                            // Terminou a troca;
+                            return TRUE;
+                        }
                     }
                 }
-            }
 
             
+            }
         }
+	    printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
+        return FALSE;
     }
-	printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
-    return FALSE;
 }
 #endif
 
@@ -513,12 +550,12 @@ void mostrar_resolvido(Grafos_mat *grafo_jogo)
     Lista *ordem = NULL;
     for(Grafos_mat* step = grafo_jogo; step != NULL; step = step->parente)
         ordem = lista_insere(ordem, step);
-    // libera_grafo_m(resolut);
+
     for(Lista* step = ordem; step != NULL; step = step->prox)
     {
-        imprime_jogo(step->grafo);
-        esperar(1000);
         limpar_tela();
+        imprime_jogo(step->grafo);
+        esperar(1);
     }
     lista_libera(ordem);
     return;
@@ -531,11 +568,6 @@ void inicia_jogo(void) {
     Grafos_mat* grafo_jogo = matriz_embaralhada();
     char resposta = 'S';
     int movimentos = 0;
-    
-    /* Demo da resolução (APAGAR)
-    Grafos_mat* result = jogo_resolver_A(grafo_jogo);
-    mostrar_resolvido(result); 
-    */
 
     imprime_incio();
     scanf(" %c", &resposta);
@@ -549,11 +581,11 @@ void inicia_jogo(void) {
         {
             imprime_jogo(grafo_jogo); //  Imprime o jogo atual da rodada;
 		
-	    tempo_gasto = time(NULL) - tempo_inicio;
-            printf("O tempo gasto até agora foi %.2f", (float)tempo_gasto);
+	        //tempo_gasto = time(NULL) - tempo_inicio;
+            //printf("O tempo gasto até agora foi %.2f", (float)tempo_gasto);
 		
             if(faz_jogada(grafo_jogo) == TRUE) // Função que permite o usuário fazer uma jogada;
-                movimentos++;  
+                movimentos++;
         }
 
         imprime_jogo(grafo_jogo); // Imprime o jogo final;
@@ -561,7 +593,6 @@ void inicia_jogo(void) {
     }
     imprime_lin_final();
     libera_grafo_m(grafo_jogo); // Libera o grafo que foi alocado para o jogo;
-    esperar(5000);
 }
 
 // Verifica se a configuração passada foi igual a configuração final;
