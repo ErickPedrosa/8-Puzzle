@@ -25,6 +25,7 @@ typedef enum p_Direc
 // Funções dependentes do SO
 void esperar(unsigned int milisecs);
 void limpar_tela();
+void imprime_linhaVazia();
 void imprime_jogo(Grafos_mat* grafo_jogo);
 void imprime_incio();
 void imprime_fim();
