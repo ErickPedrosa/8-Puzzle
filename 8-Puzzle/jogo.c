@@ -173,6 +173,27 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
 	printf("\e[0;47;40m┃\e[0;36;40mQual peça você deseja mover:\e[0;47;40m                                                                                  ┃\033[0;0m\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
     scanf(" %i", &movimento);
 	imprime_linhaVazia();
+	
+	
+	/*if (movimento == 999 || movimento == 99)
+    {
+        Grafos_mat* resolut = jogo_resolver_A(grafo_jogo);
+        Lista *ordem = NULL;
+        for(Grafos_mat* step = resolut; step != NULL; step->parente){
+            ordem = lista_insere(ordem, step);
+        }
+        libera_grafo_m(resolut);
+
+        for(Lista* step = ordem; step != NULL; step->prox){
+            imprime_jogo(step->grafo);
+            imprime_linhaVazia();
+            usleep(500000);
+
+        }
+        lista_libera(ordem);
+    }*/
+	
+	
     
 	// Procura pelo campo vazio;
     for (int i = 0; i < grafo_jogo->vert; i++){
@@ -457,12 +478,19 @@ void inicia_jogo(void) {
 
     imprime_incio();
     scanf(" %c", &resposta);
+	
+    time_t tempo_inicio = time(NULL);
+    time_t tempo_gasto;
 
     if (resposta == 'S' || resposta == 's') {
 		imprime_linhaVazia();
         while (verifica_se_acabou(grafo_jogo) == FALSE) // Faz um laço que faça com que o usuário possa fazer uma nova jogada até resolver o jogo;
         {
             imprime_jogo(grafo_jogo); //  Imprime o jogo atual da rodada;
+		
+	    tempo_gasto = time(NULL) - tempo_inicio;
+            printf("O tempo gasto até agora foi %.2f", (float)tempo_gasto);
+		
             if(faz_jogada(grafo_jogo) == TRUE) // Função que permite o usuário fazer uma jogada;
                 movimentos++;  
         }
