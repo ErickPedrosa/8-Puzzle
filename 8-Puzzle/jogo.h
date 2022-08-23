@@ -1,3 +1,11 @@
+// Inclusões com dependencia
+#ifdef _WIN32
+#include <Windows.h>
+#elif __unix__
+#include <unistd.h>
+#endif
+
+// Inclusões gerais
 #include "estruturas.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,6 +13,7 @@
 #include <time.h>
 #include <math.h>
 
+// Direção
 typedef enum p_Direc
 {
     Cima = 0,
@@ -13,16 +22,23 @@ typedef enum p_Direc
     Esquerda = 3
 } Direcao;
 
-int obter_lugar(Grafos_mat *jogo, int valor);
+// Funções dependentes do SO
+void esperar(unsigned int milisecs);
+void limpar_tela();
+void imprime_jogo(Grafos_mat* grafo_jogo);
+
+// Busca em grafo via A*
 void fazer_movimento(Grafos_mat *jogo, Direcao direc);
-// int 1(Grafos_mat *tabela);
+int distancia_Manhattan(Grafos_mat *jogo);
+int obter_lugar(Grafos_mat *jogo, int valor);
 int jogo_resolver(Grafos_mat *jogo);
 
+// Jogo
 Grafos_mat* matriz_referencia(void);
 Grafos_mat* matriz_embaralhada(void);
-int possivel_resolver(Grafos_mat*);
 Grafos_mat* jogo_impossivel_exemplo(void);
+void mostrar_resolvido(Grafos_mat *grafo_jogo);
 void inicia_jogo(void);
-int verifica_se_acabou(Grafos_mat*); 
-void imprime_jogo(Grafos_mat*);
-void faz_jogada(Grafos_mat*);
+int possivel_resolver(Grafos_mat* grafo_jogo);
+int verifica_se_acabou(Grafos_mat* grafo_jogo);
+int faz_jogada(Grafos_mat *grafo_jogo);

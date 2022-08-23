@@ -1,5 +1,56 @@
 #include "jogo.h"
-#include <unistd.h>
+
+#ifdef _WIN32
+void esperar(unsigned int milisecs)
+{
+    Sleep(milisecs);
+    return;
+}
+void limpar_tela()
+{
+    system("cls");
+    return;
+}
+// Imprime o jogo passado;
+void imprime_jogo(Grafos_mat* grafo_jogo) {
+
+    printf("\e[0;47;40m┃                                      \e[0;36;40m╔═════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m┌───┬───┬───┐\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[0][0], grafo_jogo->adj[1][1], grafo_jogo->adj[2][2]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[3][3], grafo_jogo->adj[4][4], grafo_jogo->adj[5][5]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[6][6], grafo_jogo->adj[7][7], grafo_jogo->adj[8][8]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m└───┴───┴───┘\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m╚═════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
+    return;
+}
+#elif __unix__
+void esperar(unsigned int milisecs)
+{
+    sleep(milisecs);
+    return;
+}
+void limpar_tela()
+{
+    system("clear");
+    return;
+}
+// Imprime o jogo passado;
+void imprime_jogo(Grafos_mat* grafo_jogo) {
+
+    printf("\e[0;47;40m┃                                      \e[0;36;40m╔═════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m┌───┬───┬───┐\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[0][0], grafo_jogo->adj[1][1], grafo_jogo->adj[2][2]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[3][3], grafo_jogo->adj[4][4], grafo_jogo->adj[5][5]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[6][6], grafo_jogo->adj[7][7], grafo_jogo->adj[8][8]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m└───┴───┴───┘\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m╚═════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
+    return;
+}
+#endif
 
 /*
     Configuração final:
@@ -46,11 +97,14 @@ void fazer_movimento(Grafos_mat *jogo, Direcao direc)
 		if(i%3 == 0) return; // Vazio na esquerda, não fazer nada
 		j = i-1;
 		break;
+    default:
+        return;
 	}
 	jogo->adj[i][i] = jogo->adj[j][j];
 	jogo->adj[j][j] = 0;
 }
 
+// Calcula a distância entre tabuleiro atual e o objetivo (resolvido)
 int distancia_Manhattan(Grafos_mat *jogo)
 {
     int distancia = 0, esperado = 0;
@@ -73,6 +127,7 @@ int distancia_Manhattan(Grafos_mat *jogo)
     return distancia;
 }
 
+// Resolve o jogo e retorna o caminho (resolução->jogo) 
 Grafos_mat *jogo_resolver_A(Grafos_mat *jogo)
 {
     clock_t tempo_inicio, tempo_fim;
@@ -80,7 +135,7 @@ Grafos_mat *jogo_resolver_A(Grafos_mat *jogo)
 
     tempo_inicio = clock();
     if(verifica_se_acabou(jogo) == TRUE)
-        return TRUE;
+        return jogo;
 
     Lista *testados = NULL;
     Fila *testar = Fila_cria();
@@ -123,6 +178,7 @@ Grafos_mat *jogo_resolver_A(Grafos_mat *jogo)
     }
 }
 
+// Jogo resolvido (usado como comparação)
 Grafos_mat* matriz_referencia(void) {
 
     // Aloca o Grafo
@@ -217,25 +273,35 @@ Grafos_mat* jogo_impossivel_exemplo(void) {
     return g;
 }
 
+// Mostrar a resolução do jogo
+void mostrar_resolvido(Grafos_mat *grafo_jogo)
+{
+    Lista *ordem = NULL;
+    for(Grafos_mat* step = grafo_jogo; step != NULL; step = step->parente)
+        ordem = lista_insere(ordem, step);
+    // libera_grafo_m(resolut);
+    for(Lista* step = ordem; step != NULL; step = step->prox)
+    {
+        imprime_jogo(step->grafo);
+        esperar(1000);
+        limpar_tela();
+    }
+    lista_libera(ordem);
+    return;
+}
 
 // Função que inicia o jogo dos oito;
 void inicia_jogo(void) {
 
     // Gera uma matriz embaralhada que será usada no jogo;
     Grafos_mat* grafo_jogo = matriz_embaralhada();
-    Grafos_mat* resolut = jogo_resolver_A(grafo_jogo);
-    Lista *ordem = NULL;
-    for(Grafos_mat* step = resolut; step != NULL; step = step->parente)
-        ordem = lista_insere(ordem, step);
-    libera_grafo_m(resolut);
-    for(Lista* step = ordem; step != NULL; step = step->prox)
-    {
-        imprime_jogo(step->grafo);
-        usleep(1000000);
-        system("clear");
-    }
-    lista_libera(ordem);
     char resposta = 'S';
+    int movimentos = 0;
+    
+    /* Demo da resolução (APAGAR)
+    Grafos_mat* result = jogo_resolver_A(grafo_jogo);
+    mostrar_resolvido(result); 
+    */
 
     printf("\e[0;47;40m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\033[0;0m\n");
     printf("\e[0;47;40m┃                                     \e[1;36;40m╔══════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
@@ -271,7 +337,8 @@ void inicia_jogo(void) {
         while (verifica_se_acabou(grafo_jogo) == FALSE) // Faz um laço que faça com que o usuário possa fazer uma nova jogada até resolver o jogo;
         {
             imprime_jogo(grafo_jogo); //  Imprime o jogo atual da rodada;
-            faz_jogada(grafo_jogo);  // Função que permite o usuário fazer uma jogada;
+            if(faz_jogada(grafo_jogo) == TRUE) // Função que permite o usuário fazer uma jogada;
+                movimentos++;  
         }
 
         imprime_jogo(grafo_jogo); // Imprime o jogo final;
@@ -316,23 +383,8 @@ int verifica_se_acabou(Grafos_mat* grafo_jogo) {
     return TRUE;
 }
 
-// Imprime o jogo passado;
-void imprime_jogo(Grafos_mat* grafo_jogo) {
-
-    printf("\e[0;47;40m┃                                      \e[0;36;40m╔═════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
-    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m┌───┬───┬───┐\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
-    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[0][0], grafo_jogo->adj[1][1], grafo_jogo->adj[2][2]);
-    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
-    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[3][3], grafo_jogo->adj[4][4], grafo_jogo->adj[5][5]);
-    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
-    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[6][6], grafo_jogo->adj[7][7], grafo_jogo->adj[8][8]);
-    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m└───┴───┴───┘\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
-    printf("\e[0;47;40m┃                                      \e[0;36;40m╚═════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
-    
-}
-
-
-void faz_jogada(Grafos_mat *grafo_jogo) {
+// Jogada do usuário
+int faz_jogada(Grafos_mat *grafo_jogo) {
     int movimento;
 
 	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
@@ -358,7 +410,7 @@ void faz_jogada(Grafos_mat *grafo_jogo) {
                         grafo_jogo->adj[j][j] = 0;
 
                         // Terminou a troca;
-                        return;
+                        return TRUE;
                     }
                 }
             }
@@ -367,4 +419,5 @@ void faz_jogada(Grafos_mat *grafo_jogo) {
         }
     }
 	printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
+    return FALSE;
 }

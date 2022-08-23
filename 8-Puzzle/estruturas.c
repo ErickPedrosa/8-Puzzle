@@ -1,6 +1,17 @@
 ﻿#include "jogo.h"
 // .c Contendo todas as definições de funções relacionadas a estrutura de Grafo.
 
+// Código (número visual) do jogo
+/*
+    Visualização: 87654321
+    -------------
+    | 1 | 2 | 3 |
+    -------------
+    | 4 | 5 | 6 |
+    -------------
+    | 7 | 8 | 0 |
+    -------------
+*/
 int obter_codigo(Grafos_mat *tabela)
 {
     int codigo = 0, base_dez = 1;
@@ -12,16 +23,7 @@ int obter_codigo(Grafos_mat *tabela)
     return codigo;
 }
 
-Grafos_mat *lista_pega(Lista *fonte, int valor)
-{
-	if(fonte == NULL) return NULL;
-	for(Lista *step = fonte; step != NULL; step = step->prox)
-	{
-		if(step->valor == valor)
-			return step->grafo;
-	}
-	return NULL;
-}
+// Listas
 void lista_libera(Lista *fonte)
 {
     Lista *passo = fonte;
@@ -50,18 +52,8 @@ int lista_procura(Lista* list, int alvo)
             return TRUE;
     return FALSE;
 }
-void lista_altera(Lista *lista, int alvo, Grafos_mat* valor)
-{
-	Lista *passo;
-    for(passo = lista; passo != NULL; passo = passo->prox)
-        if(passo->valor == alvo)
-		{
-			grafo_copia(passo->grafo, valor);
-			return;
-		}
-	return;
-}
 
+// Filas (lista++)
 Fila *Fila_cria()
 {
 	Fila *novo = (Fila *) calloc(1, sizeof(Fila));
@@ -70,10 +62,11 @@ Fila *Fila_cria()
 }
 void Fila_insere(Fila *fonte, Grafos_mat *info)
 {
-	filaNodo *inserir = (filaNodo *) malloc(sizeof(filaNodo));
+	Lista *inserir = (Lista *) malloc(sizeof(Lista));
 	inserir->grafo = aloca_grafo_m();
 	grafo_copia(inserir->grafo, info);
 	inserir->prox = NULL;
+	inserir->valor = 0;
 
 	if(fonte->inicio == NULL)
 	{	// Inserir primeiro
@@ -85,7 +78,7 @@ void Fila_insere(Fila *fonte, Grafos_mat *info)
 		inserir->prox = fonte->inicio;
 		fonte->inicio = inserir;
 	}
-	else for(filaNodo *passo = fonte->inicio; 1; passo = passo->prox)
+	else for(Lista *passo = fonte->inicio; 1; passo = passo->prox)
 		{
 			if(passo->prox == NULL)
 			{	// Inserir No Fim
@@ -107,7 +100,7 @@ Grafos_mat *Fila_retira(Fila *fonte)
 	Grafos_mat *info = aloca_grafo_m(); //(Grafos_mat *) malloc(sizeof(Grafos_mat));
 	if(fonte->inicio != NULL)
     {
-        filaNodo *delete = fonte->inicio;
+        Lista *delete = fonte->inicio;
         grafo_copia(info, delete->grafo);
         fonte->inicio = delete->prox;
         
@@ -120,18 +113,22 @@ Grafos_mat *Fila_retira(Fila *fonte)
 }
 void Fila_libera(Fila *fonte)
 {
-    filaNodo *passo = fonte->inicio;
-    while(passo != NULL)
-    {
-        filaNodo *buffer = passo->prox;
-        libera_grafo_m(passo->grafo);
-		free(passo);
-        passo = buffer;
-    }
-    free(fonte);
-    return;
+    lista_libera(fonte->inicio);
+	return;
+	// Lista *passo = fonte->inicio;
+    // while(passo != NULL)
+    // {
+    //     Lista *buffer = passo->prox;
+    //     libera_grafo_m(passo->grafo);
+	// 	free(passo);
+    //     passo = buffer;
+    // }
+    // free(fonte);
+    // return;
 }
 
+// Grafos
+// Aloca o grafo
 Grafos_mat* aloca_grafo_m(void) {
 	Grafos_mat* mat;
 
@@ -152,7 +149,7 @@ Grafos_mat* aloca_grafo_m(void) {
 
 	return mat;
 }
-
+// Libera o grafo
 void libera_grafo_m(Grafos_mat* mat) {
 
 	for (int i = 0; i < mat->vert; i++) {
@@ -162,7 +159,6 @@ void libera_grafo_m(Grafos_mat* mat) {
 	free(mat);
 	return;
 }
-
 // Copia um grafo para outro
 void grafo_copia(Grafos_mat *dest, Grafos_mat *fonte)
 {
@@ -175,7 +171,6 @@ void grafo_copia(Grafos_mat *dest, Grafos_mat *fonte)
 	dest->parente = fonte->parente;
 	return;
 }
-
 // Insere uma aresta não-orientada no grafo;
 void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
@@ -186,8 +181,6 @@ void insere_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 	}
 	return;
 }
-
-
 // Retira uma aresta do grafo;
 void retira_arco_m(Grafos_mat* mat, Vertice origem, Vertice destino) {
 
