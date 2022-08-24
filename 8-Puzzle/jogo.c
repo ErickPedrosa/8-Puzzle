@@ -137,7 +137,7 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
 #elif __unix__
 void esperar(unsigned int milisecs)
 {
-    sleep(milisecs/10);
+    sleep(milisecs/500);
     return;
 }
 void limpar_tela()
