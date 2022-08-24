@@ -5,6 +5,7 @@
 
 #define TRUE 1
 #define FALSE 0
+#define EXIT -1
 
 typedef int Vertice;
 typedef int Bool;

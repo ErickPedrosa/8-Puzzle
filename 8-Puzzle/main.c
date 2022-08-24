@@ -1,8 +1,2 @@
 #include "jogo.h"
-
-int main() {
-	
-	inicia_jogo();
-
-	return SUCESSO;
-}
+int main() { inicia_jogo(); return SUCESSO; }
