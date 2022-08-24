@@ -36,9 +36,7 @@ typedef struct p_ListaEncad
     struct p_ListaEncad *prox;
 } Lista;
 
-Grafos_mat *lista_pega(Lista *fonte, int valor);
 Lista *lista_insere(Lista *fonte, Grafos_mat *info);
-void lista_altera(Lista *lista, int alvo, Grafos_mat* valor);
 void lista_libera(Lista *fonte);
 int lista_procura(Lista* list, int alvo);
 
