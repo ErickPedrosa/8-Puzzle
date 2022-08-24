@@ -89,49 +89,52 @@ void imprime_lin_final()
 }
 // Jogada do usuário
 int faz_jogada(Grafos_mat *grafo_jogo) {
-    int movimento;
+    char movimento;
 
     imprime_linhaVazia();
     printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",195,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,196,180);
 	printf("%cQual pe%ca voc%c deseja mover:                                                                                  %c\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b",179,135,136,179);
-    scanf(" %i", &movimento);
+    scanf(" %c", &movimento);
 	imprime_linhaVazia();
     
-	if (movimento == 999 || movimento == 99)
+	if(movimento > 47 && movimento < 58)
     {
-        Grafos_mat* result = jogo_resolver_A(grafo_jogo);
-        mostrar_resolvido(result);
-        imprime_fim_pc();
-        imprime_lin_final();
-        return EXIT;
-    }else
-    {    
-	    // Procura pelo campo vazio;
-        for (int i = 0; i < grafo_jogo->vert; i++){
-            if (grafo_jogo->adj[i][i] == 0) {
+        if (movimento == 57)
+        {
+            Grafos_mat* result = jogo_resolver_A(grafo_jogo);
+            mostrar_resolvido(result);
+            imprime_fim_pc();
+            imprime_lin_final();
+            return EXIT;
+        }else
+        {    
+            // Procura pelo campo vazio;
+            for (int i = 0; i < grafo_jogo->vert; i++){
+                if (grafo_jogo->adj[i][i] == 0) {
 
-                // Procura pela peça indicada;
-                for (int j = 0; j < grafo_jogo->vert; j++) {
-                    if (grafo_jogo->adj[j][j] == movimento) {
+                    // Procura pela peça indicada;
+                    for (int j = 0; j < grafo_jogo->vert; j++) {
+                        if (grafo_jogo->adj[j][j] == movimento - 48) {
 
 
-                        // Verifica se é possível fazer aquele movimento;
-                        if (grafo_jogo->adj[i][j] == 1) {
+                            // Verifica se é possível fazer aquele movimento;
+                            if (grafo_jogo->adj[i][j] == 1) {
 
-                            // Troca de lugar o espaço vazio;
-                            grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
-                            grafo_jogo->adj[j][j] = 0;
+                                // Troca de lugar o espaço vazio;
+                                grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
+                                grafo_jogo->adj[j][j] = 0;
 
-                            // Terminou a troca;
-                            return TRUE;
+                                // Terminou a troca;
+                                return TRUE;
+                            }
                         }
                     }
                 }
             }
         }
-	    printf("%cEsse movimento %c imposs%cvel!                                                                                  %c\n",179,130,161,179);
-        return FALSE;
     }
+	printf("%cEsse movimento %c imposs%cvel!                                                                                  %c\n",179,130,161,179);
+    return FALSE;
 }
 
 //LINUX
@@ -254,42 +257,44 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
     scanf(" %i", &movimento);
 	imprime_linhaVazia();
 	
-	
-	if (movimento == 999 || movimento == 99)
+	if(movimento > 47 && movimento < 58)
     {
-        Grafos_mat* result = jogo_resolver_A(grafo_jogo);
-        mostrar_resolvido(result);
-        imprime_fim_pc();
-        imprime_lin_final();
-        return EXIT;
-    }else
-    {    
-	    // Procura pelo campo vazio;
-        for (int i = 0; i < grafo_jogo->vert; i++){
-            if (grafo_jogo->adj[i][i] == 0) {
+        if (movimento == 57)
+        {
+            Grafos_mat* result = jogo_resolver_A(grafo_jogo);
+            mostrar_resolvido(result);
+            imprime_fim_pc();
+            imprime_lin_final();
+            return EXIT;
+        }else
+        {    
+            // Procura pelo campo vazio;
+            for (int i = 0; i < grafo_jogo->vert; i++){
+                if (grafo_jogo->adj[i][i] == 0) {
 
-                // Procura pela peça indicada;
-                for (int j = 0; j < grafo_jogo->vert; j++) {
-                    if (grafo_jogo->adj[j][j] == movimento) {
+                    // Procura pela peça indicada;
+                    for (int j = 0; j < grafo_jogo->vert; j++) {
+                        if (grafo_jogo->adj[j][j] == movimento - 48) {
 
 
-                        // Verifica se é possível fazer aquele movimento;
-                        if (grafo_jogo->adj[i][j] == 1) {
+                            // Verifica se é possível fazer aquele movimento;
+                            if (grafo_jogo->adj[i][j] == 1) {
 
-                            // Troca de lugar o espaço vazio;
-                            grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
-                            grafo_jogo->adj[j][j] = 0;
+                                // Troca de lugar o espaço vazio;
+                                grafo_jogo->adj[i][i] = grafo_jogo->adj[j][j];
+                                grafo_jogo->adj[j][j] = 0;
 
-                            // Terminou a troca;
-                            return TRUE;
+                                // Terminou a troca;
+                                return TRUE;
+                            }
                         }
                     }
                 }
             }
         }
-	    printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
-        return FALSE;
     }
+	printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
+    return FALSE;
 }
 #endif
 
