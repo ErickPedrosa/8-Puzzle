@@ -249,12 +249,12 @@ void imprime_lin_final()
 }
 // Jogada do usuário
 int faz_jogada(Grafos_mat *grafo_jogo) {
-    int movimento;
+    char movimento;
 
     imprime_linhaVazia();
     printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
     printf("\e[0;47;40m┃\e[0;36;40mQual peça você deseja mover:\e[0;47;40m                                                                                  ┃\033[0;0m\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-    scanf(" %i", &movimento);
+    scanf(" %c", &movimento);
 	imprime_linhaVazia();
 	
 	if(movimento > 47 && movimento < 58)
