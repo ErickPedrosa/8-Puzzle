@@ -60,7 +60,7 @@ void imprime_incio()
     printf("%cDeseja come%car o jogo: S/N                                                                                    %c\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b",179,135,179);
     return;
 }
-void imprime_fim()
+void imprime_fim(int movimentos, int tempo)
 {
     printf("%c                                                                                                              %c\n",179,179);
 	printf("%c                                                                                                              %c\n",179,179);
@@ -139,7 +139,7 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
 #elif __unix__
 void esperar(unsigned int milisecs)
 {
-    sleep(milisecs/500);
+    sleep(milisecs/800);
     return;
 }
 void limpar_tela()
@@ -149,98 +149,99 @@ void limpar_tela()
 }
 void imprime_linhaVazia()
 {
-    printf("┃                                                                                                              ┃\n");
+    printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
     return;
 }
 // Imprime o jogo passado;
 void imprime_jogo(Grafos_mat* grafo_jogo) {
 
-    printf("┃                                      ╔═════════════════════════════════╗                                     ┃\n");
-    printf("┃                                      ║          ┌───┬───┬───┐          ║                                     ┃\n");
-    printf("┃                                      ║          │ %d │ %d │ %d │          ║                                     ┃\n", grafo_jogo->adj[0][0], grafo_jogo->adj[1][1], grafo_jogo->adj[2][2]);
-    printf("┃                                      ║          ├───┼───┼───┤          ║                                     ┃\n");
-    printf("┃                                      ║          │ %d │ %d │ %d │          ║                                     ┃\n", grafo_jogo->adj[3][3], grafo_jogo->adj[4][4], grafo_jogo->adj[5][5]);
-    printf("┃                                      ║          ├───┼───┼───┤          ║                                     ┃\n");
-    printf("┃                                      ║          │ %d │ %d │ %d │          ║                                     ┃\n", grafo_jogo->adj[6][6], grafo_jogo->adj[7][7], grafo_jogo->adj[8][8]);
-    printf("┃                                      ║          └───┴───┴───┘          ║                                     ┃\n");
-    printf("┃                                      ╚═════════════════════════════════╝                                     ┃\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m╔═════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m┌───┬───┬───┐\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[0][0], grafo_jogo->adj[1][1], grafo_jogo->adj[2][2]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[3][3], grafo_jogo->adj[4][4], grafo_jogo->adj[5][5]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m│ %d │ %d │ %d │\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n", grafo_jogo->adj[6][6], grafo_jogo->adj[7][7], grafo_jogo->adj[8][8]);
+    printf("\e[0;47;40m┃                                      \e[0;36;40m║          \033[1;35m└───┴───┴───┘\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                      \e[0;36;40m╚═════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
     return;
 }
 void imprime_incio()
 {
-    printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n");
-    printf("┃                                     ╔══════════════════════════════════╗                                     ┃\n");
-    printf("┃                                     ║           JOGO DOS OITO          ║                                     ┃\n");
-    printf("┃                                     ╚══════════════════════════════════╝                                     ┃\n");
-    printf("┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\n");
-    printf("┃REGRAS:                                                                                                       ┃\n");
-    printf("┃                                                                                                              ┃\n");
-    printf("┃Dado um tabuleiro 3x3 com 8 peças (cada peça tem um número de 1 a 8) e um espaço vazio.                       ┃\n");
-    printf("┃O objetivo é colocar os números nas peças em ordem de forma que fique igual à configuração final.             ┃\n");
-    printf("┃Podemos deslizar quatro peças adjacentes (esquerda, direita, acima e abaixo) no espaço vazio.                 ┃\n");
-    printf("┃O espaço vazio é representado como 0 para facilitar a visualização.                                           ┃\n");
-	printf("┃Você pode apertar Ctrl+C para encerrar o programa.                                                            ┃\n");
-    printf("┃                                                                                                              ┃\n");
-    printf("┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\n");
-    printf("┃                                     ╔══════════════════════════════════╗                                     ┃\n");
-    printf("┃                                     ║        Configuração final:       ║                                     ┃\n");
-    printf("┃                                     ║          ┌───┬───┬───┐           ║                                     ┃\n");
-    printf("┃    Tente o movimento '999' para     ║          │ 1 │ 2 │ 3 │           ║       Pressione 'Ctrl+C' para       ┃\n");
-    printf("┃      que o computador termine       ║          ├───┼───┼───┤           ║               encerrar              ┃\n");
-    printf("┃                                     ║          │ 4 │ 5 │ 6 │           ║                                     ┃\n");
-    printf("┃                                     ║          ├───┼───┼───┤           ║                                     ┃\n");
-    printf("┃                                     ║          │ 7 │ 8 │ 0 │           ║                                     ┃\n");
-    printf("┃                                     ║          └───┴───┴───┘           ║                                     ┃\n");
-    printf("┃                                     ╚══════════════════════════════════╝                                     ┃\n");
-    printf("┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\n");
-    printf("┃Deseja começar o jogo: S/N                                                                                    ┃\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+
+    printf("\e[0;47;40m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[1;36;40m╔══════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[1;36;40m║           \e[1;31;34mJOGO DOS OITO\e[0;36;40m          ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[1;36;40m╚══════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[1;31;34mREGRAS:\e[0;47;40m                                                                                                       ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[0;36;40mDado um tabuleiro 3x3 com 8 peças (cada peça tem um número de 1 a 8) e um espaço vazio.\e[0;47;40m                       ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[0;36;40mO objetivo é colocar os números nas peças em ordem de forma que fique igual à configuração final.\e[0;47;40m             ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[0;36;40mPodemos deslizar quatro peças adjacentes (esquerda, direita, acima e abaixo) no espaço vazio.\e[0;47;40m                 ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[0;36;40mO espaço vazio é representado como 0 para facilitar a visualização.\e[0;47;40m                                           ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[0;36;40mVocê pode apertar Ctrl+C para encerrar o programa.\e[0;47;40m                                                            ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[0;36;40m╔══════════════════════════════════╗\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[0;36;40m║        \e[1;31;34mConfiguração final:\e[0;36;40m       ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[0;36;40m║          \033[1;35m┌───┬───┬───┐\e[0;36;40m           ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃     \e[0;36;40mTente o movimento '999' para\e[0;47;40m    \e[0;36;40m║          \033[1;35m│ 1 │ 2 │ 3 │\e[0;36;40m           ║\e[0;47;40m       \e[0;36;40mPressione 'Ctrl+C' para\e[0;47;40m       ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃       \e[0;36;40mque o computador termine\e[0;47;40m      \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m           ║\e[0;47;40m               \e[0;36;40mencerrar\e[0;47;40m              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[0;36;40m║          \033[1;35m│ 4 │ 5 │ 6 │\e[0;36;40m           ║\e[0;47;40m                                     ┃\033[0;0m\n");                             
+    printf("\e[0;47;40m┃                                     \e[0;36;40m║          \033[1;35m├───┼───┼───┤\e[0;36;40m           ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[0;36;40m║          \033[1;35m│ 7 │ 8 │ 0 │\e[0;36;40m           ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[0;36;40m║          \033[1;35m└───┴───┴───┘\e[0;36;40m           ║\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                     \e[0;36;40m╚══════════════════════════════════╝\e[0;47;40m                                     ┃\033[0;0m\n");
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[0;36;40mDeseja começar o jogo: S/N\e[0;47;40m                                                                                    ┃\033[0;0m\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
     return;
 }
-void imprime_fim()
+void imprime_fim(int movimentos, int tempo)
 {
-    printf("┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\n");
-	printf("┃                                                                                                              ┃\n");
-    printf("┃                                  !!!PARABÉNS VOCÊ VENCEU O JOGO DOS OITO!!!                                  ┃\n");
-	printf("┃                                                                                                              ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣉⡥⠶⢶⣿⣿⣿⣿⣷⣆⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⡿⢡⡞⠁⠀⠀⠤⠈⠿⠿⠿⠿⣿⠀⢻⣦⡈⠻⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠘⡁⠀⢀⣀⣀⣀⣈⣁⣐⡒⠢⢤⡈⠛⢿⡄⠻⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠉⠐⠄⡈⢀⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⠇⢠⣿⣿⣿⣿⡿⢿⣿⣿⣿⠁⢈⣿⡄⠀⢀⣀⠸⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⡿⠟⣡⣶⣶⣬⣭⣥⣴⠀⣾⣿⣿⣿⣶⣾⣿⣧⠀⣼⣿⣷⣌⡻⢿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⠟⣋⣴⣾⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿⣿⣿⣿⣿⣿⡿⢸⣿⣿⣿⣿⣷⠄⢻                                        ┃\n");
-	printf("┃                                        ⡏⠰⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢂⣭⣿⣿⣿⣿⣿⠇⠘⠛⠛⢉⣉⣠⣴⣾                                        ┃\n");
-	printf("┃                                        ⣿⣷⣦⣬⣍⣉⣉⣛⣛⣉⠉⣤⣶⣾⣿⣿⣿⣿⣿⣿⡿⢰⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡘⣿⣿⣿⣿⣿⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                                                                                              ┃\n");
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                  \e[0;36;40m!!!PARABÉNS VOCÊ VENCEU O JOGO DOS OITO!!!\e[0;47;40m                                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                  \e[0;47;40m╔══════════════════════════════════╗\e[0;47;40m        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                  \e[0;47;40m║    \e[0;36;40mMovimentos realizados: %3d    \e[0;47;40m║\e[0;47;40m        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣉⡥⠶⢶⣿⣿⣿⣿⣷⣆⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿                  ┃\033[0;0m\n", movimentos);
+    printf("\e[0;47;40m┃                  \e[0;47;40m║                                  ║\e[0;47;40m        ⣿⣿⣿⣿⣿⣿⣿⡿⢡⡞⠁⠀⠀⠤⠈⠿⠿⠿⠿⣿⠀⢻⣦⡈⠻⣿⣿⣿⣿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                  \e[0;47;40m║        \e[0;36;40mTempo gasto: %3ds         \e[0;47;40m║\e[0;47;40m        ⣿⣿⣿⣿⣿⣿⣿⡇⠘⡁⠀⢀⣀⣀⣀⣈⣁⣐⡒⠢⢤⡈⠛⢿⡄⠻⣿⣿⣿⣿                  ┃\033[0;0m\n", tempo);
+    printf("\e[0;47;40m┃                  \e[0;47;40m╚══════════════════════════════════╝\e[0;47;40m        ⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠉⠐⠄⡈⢀⣿⣿⣿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                              ⣿⣿⣿⣿⣿⣿⣿⠇⢠⣿⣿⣿⣿⡿⢿⣿⣿⣿⠁⢈⣿⡄⠀⢀⣀⠸⣿⣿⣿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                              ⣿⣿⣿⣿⡿⠟⣡⣶⣶⣬⣭⣥⣴⠀⣾⣿⣿⣿⣶⣾⣿⣧⠀⣼⣿⣷⣌⡻⢿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                              ⣿⣿⠟⣋⣴⣾⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿⣿⣿⣿⣿⣿⡿⢸⣿⣿⣿⣿⣷⠄⢻                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                              ⡏⠰⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢂⣭⣿⣿⣿⣿⣿⠇⠘⠛⠛⢉⣉⣠⣴⣾                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                              ⣿⣷⣦⣬⣍⣉⣉⣛⣛⣉⠉⣤⣶⣾⣿⣿⣿⣿⣿⣿⡿⢰⣿⣿⣿⣿⣿⣿⣿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                              ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡘⣿⣿⣿⣿⣿⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                              ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿                  ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
     return;
 }
 void imprime_fim_pc()
 {
-    printf("┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\n");
-	printf("┃                                                                                                              ┃\n");
-    printf("┃                             !!!PARABÉNS, O COMPUTADOR VENCEU O JOGO DOS OITO!!!                              ┃\n");
-	printf("┃                                                                                                              ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣉⡥⠶⢶⣿⣿⣿⣿⣷⣆⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⡿⢡⡞⠁⠀⠀⠤⠈⠿⠿⠿⠿⣿⠀⢻⣦⡈⠻⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠘⡁⠀⢀⣀⣀⣀⣈⣁⣐⡒⠢⢤⡈⠛⢿⡄⠻⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠉⠐⠄⡈⢀⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⠇⢠⣿⣿⣿⣿⡿⢿⣿⣿⣿⠁⢈⣿⡄⠀⢀⣀⠸⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⡿⠟⣡⣶⣶⣬⣭⣥⣴⠀⣾⣿⣿⣿⣶⣾⣿⣧⠀⣼⣿⣷⣌⡻⢿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⠟⣋⣴⣾⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿⣿⣿⣿⣿⣿⡿⢸⣿⣿⣿⣿⣷⠄⢻                                        ┃\n");
-	printf("┃                                        ⡏⠰⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢂⣭⣿⣿⣿⣿⣿⠇⠘⠛⠛⢉⣉⣠⣴⣾                                        ┃\n");
-	printf("┃                                        ⣿⣷⣦⣬⣍⣉⣉⣛⣛⣉⠉⣤⣶⣾⣿⣿⣿⣿⣿⣿⡿⢰⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡘⣿⣿⣿⣿⣿⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\n");
-	printf("┃                                                                                                              ┃\n");
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+    printf("\e[0;47;40m┃                             \e[0;36;40m!!!PARABÉNS, O COMPUTADOR VENCEU O JOGO DOS OITO!!!\e[0;47;40m                              ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣉⡥⠶⢶⣿⣿⣿⣿⣷⣆⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡿⢡⡞⠁⠀⠀⠤⠈⠿⠿⠿⠿⣿⠀⢻⣦⡈⠻⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠘⡁⠀⢀⣀⣀⣀⣈⣁⣐⡒⠢⢤⡈⠛⢿⡄⠻⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠉⠐⠄⡈⢀⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⠇⢠⣿⣿⣿⣿⡿⢿⣿⣿⣿⠁⢈⣿⡄⠀⢀⣀⠸⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⡿⠟⣡⣶⣶⣬⣭⣥⣴⠀⣾⣿⣿⣿⣶⣾⣿⣧⠀⣼⣿⣷⣌⡻⢿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⠟⣋⣴⣾⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿⣿⣿⣿⣿⣿⡿⢸⣿⣿⣿⣿⣷⠄⢻                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⡏⠰⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢂⣭⣿⣿⣿⣿⣿⠇⠘⠛⠛⢉⣉⣠⣴⣾                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣷⣦⣬⣍⣉⣉⣛⣛⣉⠉⣤⣶⣾⣿⣿⣿⣿⣿⣿⡿⢰⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡘⣿⣿⣿⣿⣿⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿                                        ┃\033[0;0m\n");
+	printf("\e[0;47;40m┃                                                                                                              ┃\033[0;0m\n");
     return;
 }
 void imprime_lin_final()
 {
-    printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n");
+    printf("\e[0;47;40m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\033[0;0m\n");
     return;
 }
 // Jogada do usuário
@@ -248,8 +249,8 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
     int movimento;
 
     imprime_linhaVazia();
-    printf("┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\n");
-	printf("┃Qual peça você deseja mover:                                                                                  ┃\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+    printf("\e[0;47;40m┠──────────────────────────────────────────────────────────────────────────────────────────────────────────────┨\033[0;0m\n");
+    printf("\e[0;47;40m┃\e[0;36;40mQual peça você deseja mover:\e[0;47;40m                                                                                  ┃\033[0;0m\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
     scanf(" %i", &movimento);
 	imprime_linhaVazia();
 	
@@ -284,11 +285,9 @@ int faz_jogada(Grafos_mat *grafo_jogo) {
                         }
                     }
                 }
-
-            
             }
         }
-	    printf("┃Esse movimento é impossível!                                                                                  ┃\n");
+	    printf("\e[0;47;40m┃\e[0;36;40mEsse movimento é impossível!\e[0;47;40m                                                                                  ┃\033[0;0m\n");
         return FALSE;
     }
 }
@@ -551,8 +550,7 @@ void inicia_jogo(void) {
         {
             imprime_jogo(grafo_jogo); //  Imprime o jogo atual da rodada;
 		
-	        //tempo_gasto = time(NULL) - tempo_inicio;
-            //printf("O tempo gasto até agora foi %.2f", (float)tempo_gasto);
+	        tempo_gasto = time(NULL) - tempo_inicio;
 		
             int saida = faz_jogada(grafo_jogo);
             if(saida == TRUE) // Função que permite o usuário fazer uma jogada;
@@ -562,7 +560,7 @@ void inicia_jogo(void) {
         }
 
         imprime_jogo(grafo_jogo); // Imprime o jogo final;
-        imprime_fim();
+        imprime_fim(movimentos, tempo_gasto);
     }
     imprime_lin_final();
     libera_grafo_m(grafo_jogo); // Libera o grafo que foi alocado para o jogo;
